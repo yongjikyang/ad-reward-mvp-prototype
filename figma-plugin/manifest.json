@@ -1,0 +1,7 @@
+{
+  "name": "Ad Reward MVP Layer Builder",
+  "id": "ad-reward-mvp-layer-builder",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"]
+}
