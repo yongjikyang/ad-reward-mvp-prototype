@@ -30,11 +30,11 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
 .gem-row-head{width:100%;height:28px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .remaining{display:flex;gap:8px;align-items:center;font-size:16px;font-weight:800;letter-spacing:-.32px;white-space:nowrap}
 .remaining b{color:#9fa9ff;font-weight:800}
-.ad-more{height:28px;border:0;border-radius:8px;background:linear-gradient(71deg,#6c4fff 16%,#5e99ff 69%,#f394ff 106%);color:#fff;font:650 11px/1 Pretendard,sans-serif;display:flex;align-items:center;gap:4px;padding:0 8px 0 6px;cursor:pointer;white-space:nowrap}
+.ad-more{height:28px;border:0;border-radius:8px;background:linear-gradient(71deg,#6c4fff 16%,#5e99ff 69%,#f394ff 106%);color:#fff;font:650 11px/1 Pretendard,sans-serif;display:none;align-items:center;gap:4px;padding:0 8px 0 6px;cursor:pointer;white-space:nowrap}
 .ad-more img{width:16px;height:16px;object-fit:contain}
 .gems{display:flex;gap:10px;align-items:center;height:32px}
 .gem-slot{width:40px;height:32px;display:flex;align-items:flex-end;justify-content:center;opacity:1;transition:.2s}
-.gem-slot.empty{opacity:.2;filter:saturate(.35)}
+.gem-slot.empty{opacity:.3}
 .gem-slot img{width:40px;height:32px;object-fit:cover;object-position:bottom}
 .ad-card{position:absolute;left:40px;top:750px;width:310px;height:332px;border-radius:20px;overflow:hidden;background:#fff;z-index:1}
 .ad-card img{position:absolute;left:-24px;top:-327px;width:362px;height:auto}
@@ -79,7 +79,7 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
     <section class="gem-panel">
       <div class="gem-row-head">
         <div class="remaining"><span>오늘 남은 보석</span><b id="remainText">4개</b></div>
-        <button class="ad-more" id="adMore"><img src="assets/figma/hammer.png" alt="">광고 보고 더 깨기</button>
+        <button class="ad-more" id="adMore"><img src="assets/figma/hammer-figma.png" alt="">광고 보고 더 깨기</button>
       </div>
       <div class="gems" id="gems"></div>
     </section>
@@ -117,6 +117,7 @@ const rockZone=document.getElementById("rockZone");
 const bigHammer=document.getElementById("bigHammer");
 const remainText=document.getElementById("remainText");
 const gems=document.getElementById("gems");
+const adMore=document.getElementById("adMore");
 const overlay=document.getElementById("overlay");
 const rewardBtn=document.getElementById("rewardBtn");
 const collection=document.getElementById("collection");
@@ -129,14 +130,15 @@ function render(){
   progressText.style.left=Math.min(350,Math.max(40,progressX))+"px";
   progressHammer.style.left=(progressX-12)+"px";
   remainText.textContent=state.remaining+"개";
+  adMore.style.display=state.remaining===0?"flex":"none";
   rock.src=rockStages[rockStage-1];
   rock.alt=`돌 ${rockStage}단계`;
   rock.style.transform=`scale(${1-(state.progress-50)*.003})`;
   gems.innerHTML="";
   for(let i=0;i<5;i++){
     const slot=document.createElement("div");
-    slot.className="gem-slot"+(i>=state.opened?" empty":"");
-    slot.innerHTML='<img src="assets/figma/gem-blue.png" alt="보석">';
+    slot.className="gem-slot"+(i>=state.remaining?" empty":"");
+    slot.innerHTML='<img src="assets/figma/jewel-icon.png" alt="보석">';
     gems.appendChild(slot);
   }
 }
@@ -179,7 +181,7 @@ function closePopup(){
 }
 function toast(text){toastEl.textContent=text;toastEl.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toastEl.classList.remove("show"),1700)}
 rockZone.addEventListener("click",hit);
-document.getElementById("adMore").addEventListener("click",()=>{state.remaining++;state.opened=Math.max(0,state.opened-1);toast("광고 시청 완료, 보석 1개 추가");render()});
+adMore.addEventListener("click",()=>{state.remaining=5;state.opened=5;toast("광고 시청 완료, 보석 5개 추가");render()});
 document.getElementById("checkinBtn").addEventListener("click",()=>toast("출석체크 완료"));
 document.getElementById("boxBtn").addEventListener("click",()=>collection.classList.add("show"));
 document.getElementById("closeCollection").addEventListener("click",()=>collection.classList.remove("show"));
