@@ -46,7 +46,7 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
 @keyframes pop{to{transform:scale(1)}}
 .popup-copy{text-align:center;font-size:24px;font-weight:650;letter-spacing:-.48px;line-height:1.2;display:flex;flex-direction:column;gap:12px;width:100%}
 .reward-text{background:linear-gradient(35deg,#3e1de5 14%,#5e99ff 47%,#f394ff 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.popup-close{position:absolute;top:18px;right:18px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font:500 22px/30px Pretendard,sans-serif;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center}.diamond-wrap{position:relative;width:150px;height:148px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab;transform-style:preserve-3d;transition:transform .18s ease-out}.diamond-wrap.dragging{cursor:grabbing;transition:none}.diamond-wrap img{width:150px;height:148px;object-fit:cover;object-position:center 50%;filter:drop-shadow(0 0 18px rgba(159,169,255,.4));animation:diamond-glow 2.4s ease-in-out infinite}.diamond-wrap::before,.diamond-wrap::after{content:"";position:absolute;inset:8px;border-radius:50%;pointer-events:none}.diamond-wrap::before{background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,.86) 46%,transparent 62%);mix-blend-mode:screen;opacity:0;transform:translateX(-72%) rotate(14deg);animation:diamond-shine 2.8s ease-in-out infinite}.diamond-wrap::after{background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.92) 0 2px,transparent 3px),radial-gradient(circle at 70% 45%,rgba(180,230,255,.75) 0 2px,transparent 3px),radial-gradient(circle at 52% 72%,rgba(255,198,255,.75) 0 1.5px,transparent 3px);opacity:.65;animation:diamond-twinkle 1.7s ease-in-out infinite}.sparkle{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.95);pointer-events:none;animation:sparkle-float 1.2s ease-out forwards;z-index:2}@keyframes diamond-glow{0%,100%{filter:drop-shadow(0 0 12px rgba(159,169,255,.38)) brightness(1)}50%{filter:drop-shadow(0 0 24px rgba(243,148,255,.72)) brightness(1.08)}}@keyframes diamond-shine{0%,55%{opacity:0;transform:translateX(-82%) rotate(14deg)}68%{opacity:.7}88%,100%{opacity:0;transform:translateX(82%) rotate(14deg)}}@keyframes diamond-twinkle{0%,100%{opacity:.38;transform:scale(.96)}50%{opacity:.9;transform:scale(1.04)}}@keyframes sparkle-float{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
+.popup-close{position:absolute;top:18px;right:18px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font:500 22px/30px Pretendard,sans-serif;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center}.diamond-wrap{position:relative;width:150px;height:148px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab;transform-style:preserve-3d;transition:transform .18s ease-out}.diamond-wrap.dragging{cursor:grabbing;transition:none}.diamond-wrap img{width:150px;height:148px;object-fit:contain;object-position:center 50%;filter:drop-shadow(0 0 20px rgba(159,169,255,.62));animation:diamond-glow 1.35s ease-in-out infinite}.diamond-wrap::before,.diamond-wrap::after{content:"";position:absolute;inset:0;pointer-events:none}.diamond-wrap::before{background:radial-gradient(circle at 24% 20%,rgba(255,255,255,.95) 0 2px,transparent 4px),radial-gradient(circle at 76% 24%,rgba(190,233,255,.9) 0 2px,transparent 4px),radial-gradient(circle at 36% 72%,rgba(255,198,255,.86) 0 2px,transparent 4px),radial-gradient(circle at 68% 70%,rgba(255,255,255,.88) 0 1.5px,transparent 4px);animation:diamond-twinkle 1.05s ease-in-out infinite}.diamond-wrap::after{background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.42),transparent 48%);opacity:.55;animation:diamond-pulse 1.2s ease-in-out infinite}.sparkle{position:absolute;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 13px rgba(255,255,255,.98),0 0 22px rgba(180,218,255,.75);pointer-events:none;animation:sparkle-float .95s ease-out forwards;z-index:2}@keyframes diamond-glow{0%,100%{filter:drop-shadow(0 0 14px rgba(159,169,255,.5)) brightness(1)}38%{filter:drop-shadow(0 0 28px rgba(243,148,255,.82)) brightness(1.12)}68%{filter:drop-shadow(0 0 24px rgba(166,255,242,.72)) brightness(1.08)}}@keyframes diamond-twinkle{0%,100%{opacity:.34;transform:scale(.9) rotate(0deg)}35%{opacity:1;transform:scale(1.08) rotate(7deg)}70%{opacity:.72;transform:scale(.98) rotate(-5deg)}}@keyframes diamond-pulse{0%,100%{opacity:.28;transform:scale(.92)}50%{opacity:.72;transform:scale(1.12)}}@keyframes sparkle-float{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
 .cta{position:absolute;bottom:141px;left:45px;width:300px;height:52px;border:0;border-radius:12px;background:linear-gradient(40deg,#3e1de5 13%,#5e99ff 64%,#f394ff 100%);color:#fff;font:800 16px/1 Pretendard,sans-serif;cursor:pointer;z-index:31;display:none}
 .cta.show{display:block}
 .particle{position:absolute;width:8px;height:8px;border-radius:50%;background:#9fa9ff;z-index:8;pointer-events:none;animation:burst .65s ease-out forwards}
@@ -89,7 +89,7 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
     <section class="popup">
       <button class="popup-close" id="popupClose" type="button" aria-label="닫기">×</button>
       <div class="popup-copy"><span>다이아몬드가 나왔어요!</span><span class="reward-text">+300만원</span></div>
-      <div class="diamond-wrap" id="diamondWrap"><img src="assets/figma/diamond.png" alt="다이아몬드"></div>
+      <div class="diamond-wrap" id="diamondWrap"><img src="assets/figma/diamond.png?v=figma-new-sparkle" alt="다이아몬드"></div>
     </section>
   </div>
   <button class="cta" id="rewardBtn">광고보고 보석 받기</button>
@@ -125,6 +125,7 @@ const popupClose=document.getElementById("popupClose");
 const diamondWrap=document.getElementById("diamondWrap");
 const collection=document.getElementById("collection");
 const toastEl=document.getElementById("toast");
+let sparkleTimer=null;
 function render(){
   const progressX=40+310*state.progress/100;
   const rockStage=Math.min(5,Math.max(1,Math.floor((state.progress-50)/10)+1));
@@ -172,10 +173,11 @@ function burst(x,y){
     setTimeout(()=>p.remove(),700);
   }
 }
-function openPopup(){overlay.classList.add("show");rewardBtn.classList.add("show");diamondWrap.style.transform="";createDiamondSparkles()}
+function openPopup(){overlay.classList.add("show");rewardBtn.classList.add("show");diamondWrap.style.transform="";startDiamondSparkles()}
 function closePopup(){
   overlay.classList.remove("show");
   rewardBtn.classList.remove("show");
+  stopDiamondSparkles();
   state.progress=50;
   state.remaining=Math.max(0,state.remaining-1);
   state.opened=Math.min(5,state.opened+1);
@@ -185,19 +187,30 @@ function closePopup(){
 function dismissPopup(){
   overlay.classList.remove("show");
   rewardBtn.classList.remove("show");
+  stopDiamondSparkles();
   state.progress=50;
   render();
 }
-function createDiamondSparkles(){
-  for(let i=0;i<8;i++){
+function startDiamondSparkles(){
+  stopDiamondSparkles();
+  createDiamondSparkles(18);
+  sparkleTimer=setInterval(()=>createDiamondSparkles(7),520);
+}
+function stopDiamondSparkles(){
+  if(sparkleTimer)clearInterval(sparkleTimer);
+  sparkleTimer=null;
+  document.querySelectorAll(".sparkle").forEach(s=>s.remove());
+}
+function createDiamondSparkles(count){
+  for(let i=0;i<count;i++){
     const s=document.createElement("i");
     s.className="sparkle";
-    s.style.left=115+Math.random()*70+"px";
-    s.style.top=190+Math.random()*70+"px";
-    s.style.setProperty("--x",(Math.random()*70-35)+"px");
-    s.style.setProperty("--y",(-34-Math.random()*44)+"px");
+    s.style.left=98+Math.random()*104+"px";
+    s.style.top=176+Math.random()*104+"px";
+    s.style.setProperty("--x",(Math.random()*96-48)+"px");
+    s.style.setProperty("--y",(-28-Math.random()*70)+"px");
     document.querySelector(".popup").appendChild(s);
-    setTimeout(()=>s.remove(),1300);
+    setTimeout(()=>s.remove(),1050);
   }
 }
 function toast(text){toastEl.textContent=text;toastEl.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toastEl.classList.remove("show"),1700)}
