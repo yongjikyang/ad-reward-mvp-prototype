@@ -19,7 +19,7 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
 .hero-sub{position:absolute;top:155px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:400;letter-spacing:-.28px;color:rgba(255,255,255,.7);white-space:nowrap}
 .progress-wrap{position:absolute;top:225px;left:40px;width:310px;height:12px;background:#2a3036;border-radius:999px;overflow:hidden}
 .progress-fill{height:100%;width:50%;border-radius:999px;background:linear-gradient(90deg,#6c4fff 0%,#5e99ff 54%,#f394ff 100%);transition:width .26s cubic-bezier(.2,.8,.2,1)}
-.progress-percent{position:absolute;top:245px;left:0;width:100%;text-align:center;font-size:14px;font-weight:650;color:#768a97;letter-spacing:-.28px}
+.progress-percent{position:absolute;top:245px;left:195px;transform:translateX(-50%);width:max-content;min-width:36px;text-align:center;font-size:14px;font-weight:650;color:#768a97;letter-spacing:-.28px;transition:left .26s cubic-bezier(.2,.8,.2,1)}
 .progress-hammer{position:absolute;top:193px;left:184px;width:24px;height:24px;transition:left .26s,transform .18s;transform:rotate(-15deg);z-index:2}
 .rock-zone{position:absolute;top:290px;left:63px;width:265px;height:275px;cursor:pointer;touch-action:manipulation}
 .rock{position:absolute;left:0;top:-48px;width:265px;height:auto;transform-origin:center 70%;transition:transform .28s cubic-bezier(.2,1.3,.2,1),filter .28s}
@@ -107,6 +107,8 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
 </div>
 <script>
 const state={progress:50,remaining:4,opened:4};
+const rockStages=["assets/figma/rock-stage-1.png","assets/figma/rock-stage-2.png","assets/figma/rock-stage-3.png","assets/figma/rock-stage-4.png","assets/figma/rock-stage-5.png"];
+rockStages.forEach(src=>{const image=new Image();image.src=src});
 const progressFill=document.getElementById("progressFill");
 const progressText=document.getElementById("progressText");
 const progressHammer=document.getElementById("progressHammer");
@@ -120,10 +122,15 @@ const rewardBtn=document.getElementById("rewardBtn");
 const collection=document.getElementById("collection");
 const toastEl=document.getElementById("toast");
 function render(){
+  const progressX=40+310*state.progress/100;
+  const rockStage=Math.min(5,Math.max(1,Math.floor((state.progress-50)/10)+1));
   progressFill.style.width=state.progress+"%";
   progressText.textContent=state.progress+"%";
-  progressHammer.style.left=(40+310*state.progress/100-12)+"px";
+  progressText.style.left=Math.min(350,Math.max(40,progressX))+"px";
+  progressHammer.style.left=(progressX-12)+"px";
   remainText.textContent=state.remaining+"개";
+  rock.src=rockStages[rockStage-1];
+  rock.alt=`돌 ${rockStage}단계`;
   rock.style.transform=`scale(${1-(state.progress-50)*.003})`;
   gems.innerHTML="";
   for(let i=0;i<5;i++){
