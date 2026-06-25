@@ -79,7 +79,7 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
     <section class="gem-panel">
       <div class="gem-row-head">
         <div class="remaining"><span>오늘 남은 보석</span><b id="remainText">4개</b></div>
-        <button class="ad-more" id="adMore"><img src="assets/figma/hammer-figma.png" alt="">광고 보고 더 깨기</button>
+        <button class="ad-more" id="adMore"><img src="assets/figma/hammer-figma.png?v=73c2jewel" alt="">광고 보고 더 깨기</button>
       </div>
       <div class="gems" id="gems"></div>
     </section>
@@ -138,7 +138,7 @@ function render(){
   for(let i=0;i<5;i++){
     const slot=document.createElement("div");
     slot.className="gem-slot"+(i>=state.remaining?" empty":"");
-    slot.innerHTML='<img src="assets/figma/jewel-icon.png" alt="보석">';
+    slot.innerHTML='<img src="assets/figma/jewel-icon.png?v=73c2jewel" alt="보석">';
     gems.appendChild(slot);
   }
 }
