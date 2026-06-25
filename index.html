@@ -40,14 +40,17 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
 .ad-card img{position:absolute;left:-24px;top:-327px;width:362px;height:auto}
 .toast{position:absolute;left:50%;bottom:84px;transform:translateX(-50%) translateY(14px);padding:12px 18px;border-radius:14px;background:rgba(255,255,255,.95);color:#111;font-size:13px;font-weight:800;z-index:20;opacity:0;transition:.25s;white-space:nowrap;box-shadow:0 12px 30px rgba(0,0,0,.35)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:30;display:none;align-items:center;justify-content:center;flex-direction:column}
-.overlay.show{display:flex}
-.popup{width:300px;height:378px;border-radius:40px;border:1px solid rgba(255,255,255,.85);background:linear-gradient(143deg,rgba(0,0,0,.72) 37%,rgba(46,39,99,.72) 90%,rgba(166,255,242,.72) 142%);box-shadow:0 0 100px rgba(140,152,255,.7);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:30px 24px;transform:scale(.92);animation:pop .28s cubic-bezier(.2,1.35,.3,1) forwards;position:relative;overflow:hidden}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:30;display:none}
+.overlay.show{display:block}
+.popup-wrapper{position:absolute;left:45px;top:181px;width:300px;display:flex;flex-direction:column;gap:16px;z-index:31}
+.popup-header{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.popup{width:100%;height:378px;border-radius:40px;border:1px solid #fff;background:linear-gradient(150.229deg,rgba(0,0,0,.5) 13.785%,rgba(46,39,99,.5) 70.775%,rgba(175,158,255,.5) 127.77%);box-shadow:0 0 100px rgba(140,152,255,.7);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:30px 24px;overflow:hidden;z-index:31;transform:scale(.92);animation:pop .28s cubic-bezier(.2,1.35,.3,1) forwards}
 @keyframes pop{to{transform:scale(1)}}
+@keyframes diamond-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .popup-copy{text-align:center;font-size:24px;font-weight:650;letter-spacing:-.48px;line-height:1.2;display:flex;flex-direction:column;gap:12px;width:100%}
 .reward-text{background:linear-gradient(35deg,#3e1de5 14%,#5e99ff 47%,#f394ff 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.popup-close{position:absolute;top:181px;right:45px;width:40px;height:40px;border:0;background:transparent;padding:0;cursor:pointer;z-index:32;display:flex;align-items:center;justify-content:center}.popup-close img{width:22.34px;height:22.34px;display:block}.diamond-wrap{position:relative;width:150px;height:148px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab;transform-style:preserve-3d;transition:transform .18s ease-out}.diamond-wrap.dragging{cursor:grabbing;transition:none}.diamond-wrap img{width:150px;height:148px;object-fit:contain;object-position:center 50%;filter:drop-shadow(0 0 18px rgba(255,255,255,.35))}.sparkle{position:absolute;width:14px;height:14px;pointer-events:none;z-index:4;animation:sparkle-shine .9s ease-out forwards}.sparkle::before,.sparkle::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;border-radius:1px}.sparkle::before{width:100%;height:2px}.sparkle::after{width:2px;height:100%}@keyframes sparkle-shine{0%{opacity:0;transform:scale(.1)}40%{opacity:var(--sparkle-op,.7)}65%{opacity:var(--sparkle-op,.7)}100%{opacity:0;transform:scale(.3)}}
-.cta{position:absolute;bottom:141px;left:45px;width:300px;height:52px;border:0;border-radius:12px;background:linear-gradient(40deg,#3e1de5 13%,#5e99ff 64%,#f394ff 100%);color:#fff;font:800 16px/1 Pretendard,sans-serif;cursor:pointer;z-index:31;display:none}
+.popup-close{width:40px;height:40px;border:0;background:transparent;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center}.popup-close img{width:22.34px;height:22.34px;display:block}.diamond-wrap{position:relative;width:150px;height:148px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab;animation:diamond-bob 2.6s ease-in-out infinite}.diamond-wrap img{width:150px;height:148px;object-fit:contain;object-position:center 50%;filter:drop-shadow(0 24px 34px rgba(0,0,0,.45)) drop-shadow(0 0 30px rgba(159,169,255,.8))}.sparkle{position:absolute;width:14px;height:14px;pointer-events:none;z-index:4;animation:sparkle-shine .9s ease-out forwards}.sparkle::before,.sparkle::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;border-radius:1px}.sparkle::before{width:100%;height:2px}.sparkle::after{width:2px;height:100%}@keyframes sparkle-shine{0%{opacity:0;transform:scale(.1)}40%{opacity:var(--sparkle-op,.7)}65%{opacity:var(--sparkle-op,.7)}100%{opacity:0;transform:scale(.3)}}
+.cta{width:100%;height:52px;border:0;border-radius:12px;background:linear-gradient(39.67deg,#3e1de5 12.586%,#5e99ff 63.619%,#f394ff 100.08%);color:#fff;font:800 16px/1 Pretendard,sans-serif;cursor:pointer;display:none}
 .cta.show{display:block}
 .particle{position:absolute;width:8px;height:8px;border-radius:50%;background:#9fa9ff;z-index:8;pointer-events:none;animation:burst .65s ease-out forwards}
 @keyframes burst{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
@@ -86,13 +89,17 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
     <div class="ad-card"><img src="assets/figma/ad-card.png" alt="광고 배너"></div>
   </main>
   <div class="overlay" id="overlay">
-    <button class="popup-close" id="popupClose" type="button" aria-label="닫기"><img src="assets/figma/icon-close.svg" alt=""></button>
-    <section class="popup">
-      <div class="popup-copy"><span>다이아몬드가 나왔어요!</span><span class="reward-text">+300만원</span></div>
-      <div class="diamond-wrap" id="diamondWrap"><img src="assets/figma/diamond.png?v=transparent-512" alt="다이아몬드"></div>
-    </section>
+    <div class="popup-wrapper">
+      <div class="popup-header">
+        <button class="popup-close" id="popupClose" type="button" aria-label="닫기"><img src="assets/figma/icon-close.svg" alt=""></button>
+        <section class="popup" id="popupCard">
+          <div class="popup-copy"><span>다이아몬드가 나왔어요!</span><span class="reward-text">+300만원</span></div>
+          <div class="diamond-wrap" id="diamondWrap"><img src="assets/figma/diamond.png?v=figma-liquid" alt="다이아몬드"></div>
+        </section>
+      </div>
+      <button class="cta" id="rewardBtn">광고보고 보석 받기</button>
+    </div>
   </div>
-  <button class="cta" id="rewardBtn">광고보고 보석 받기</button>
   <section class="collection" id="collection">
     <button class="close" id="closeCollection">← 닫기</button>
     <h2>내 보석함</h2>
