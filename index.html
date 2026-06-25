@@ -42,11 +42,11 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:30;display:none;align-items:center;justify-content:center;flex-direction:column}
 .overlay.show{display:flex}
-.popup{width:300px;height:378px;border-radius:40px;border:1px solid rgba(255,255,255,.85);background:linear-gradient(143deg,rgba(0,0,0,.72) 37%,rgba(46,39,99,.72) 90%,rgba(166,255,242,.72) 142%);box-shadow:0 0 100px rgba(140,152,255,.7);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:30px 24px;transform:scale(.92);animation:pop .28s cubic-bezier(.2,1.35,.3,1) forwards}
+.popup{width:300px;height:378px;border-radius:40px;border:1px solid rgba(255,255,255,.85);background:linear-gradient(143deg,rgba(0,0,0,.72) 37%,rgba(46,39,99,.72) 90%,rgba(166,255,242,.72) 142%);box-shadow:0 0 100px rgba(140,152,255,.7);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:30px 24px;transform:scale(.92);animation:pop .28s cubic-bezier(.2,1.35,.3,1) forwards;position:relative;overflow:hidden}
 @keyframes pop{to{transform:scale(1)}}
 .popup-copy{text-align:center;font-size:24px;font-weight:650;letter-spacing:-.48px;line-height:1.2;display:flex;flex-direction:column;gap:12px;width:100%}
 .reward-text{background:linear-gradient(35deg,#3e1de5 14%,#5e99ff 47%,#f394ff 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.popup img{width:150px;height:148px;object-fit:cover;object-position:center 50%}
+.popup-close{position:absolute;top:18px;right:18px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font:500 22px/30px Pretendard,sans-serif;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center}.diamond-wrap{position:relative;width:150px;height:148px;display:flex;align-items:center;justify-content:center;touch-action:none;cursor:grab;transform-style:preserve-3d;transition:transform .18s ease-out}.diamond-wrap.dragging{cursor:grabbing;transition:none}.diamond-wrap img{width:150px;height:148px;object-fit:cover;object-position:center 50%;filter:drop-shadow(0 0 18px rgba(159,169,255,.4));animation:diamond-glow 2.4s ease-in-out infinite}.diamond-wrap::before,.diamond-wrap::after{content:"";position:absolute;inset:8px;border-radius:50%;pointer-events:none}.diamond-wrap::before{background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,.86) 46%,transparent 62%);mix-blend-mode:screen;opacity:0;transform:translateX(-72%) rotate(14deg);animation:diamond-shine 2.8s ease-in-out infinite}.diamond-wrap::after{background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.92) 0 2px,transparent 3px),radial-gradient(circle at 70% 45%,rgba(180,230,255,.75) 0 2px,transparent 3px),radial-gradient(circle at 52% 72%,rgba(255,198,255,.75) 0 1.5px,transparent 3px);opacity:.65;animation:diamond-twinkle 1.7s ease-in-out infinite}.sparkle{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.95);pointer-events:none;animation:sparkle-float 1.2s ease-out forwards;z-index:2}@keyframes diamond-glow{0%,100%{filter:drop-shadow(0 0 12px rgba(159,169,255,.38)) brightness(1)}50%{filter:drop-shadow(0 0 24px rgba(243,148,255,.72)) brightness(1.08)}}@keyframes diamond-shine{0%,55%{opacity:0;transform:translateX(-82%) rotate(14deg)}68%{opacity:.7}88%,100%{opacity:0;transform:translateX(82%) rotate(14deg)}}@keyframes diamond-twinkle{0%,100%{opacity:.38;transform:scale(.96)}50%{opacity:.9;transform:scale(1.04)}}@keyframes sparkle-float{to{transform:translate(var(--x),var(--y)) scale(0);opacity:0}}
 .cta{position:absolute;bottom:141px;left:45px;width:300px;height:52px;border:0;border-radius:12px;background:linear-gradient(40deg,#3e1de5 13%,#5e99ff 64%,#f394ff 100%);color:#fff;font:800 16px/1 Pretendard,sans-serif;cursor:pointer;z-index:31;display:none}
 .cta.show{display:block}
 .particle{position:absolute;width:8px;height:8px;border-radius:50%;background:#9fa9ff;z-index:8;pointer-events:none;animation:burst .65s ease-out forwards}
@@ -87,8 +87,9 @@ body{min-height:100%;display:flex;align-items:flex-start;justify-content:center;
   </main>
   <div class="overlay" id="overlay">
     <section class="popup">
+      <button class="popup-close" id="popupClose" type="button" aria-label="닫기">×</button>
       <div class="popup-copy"><span>다이아몬드가 나왔어요!</span><span class="reward-text">+300만원</span></div>
-      <img src="assets/figma/diamond.png" alt="다이아몬드">
+      <div class="diamond-wrap" id="diamondWrap"><img src="assets/figma/diamond.png" alt="다이아몬드"></div>
     </section>
   </div>
   <button class="cta" id="rewardBtn">광고보고 보석 받기</button>
@@ -120,6 +121,8 @@ const gems=document.getElementById("gems");
 const adMore=document.getElementById("adMore");
 const overlay=document.getElementById("overlay");
 const rewardBtn=document.getElementById("rewardBtn");
+const popupClose=document.getElementById("popupClose");
+const diamondWrap=document.getElementById("diamondWrap");
 const collection=document.getElementById("collection");
 const toastEl=document.getElementById("toast");
 function render(){
@@ -169,7 +172,7 @@ function burst(x,y){
     setTimeout(()=>p.remove(),700);
   }
 }
-function openPopup(){overlay.classList.add("show");rewardBtn.classList.add("show")}
+function openPopup(){overlay.classList.add("show");rewardBtn.classList.add("show");diamondWrap.style.transform="";createDiamondSparkles()}
 function closePopup(){
   overlay.classList.remove("show");
   rewardBtn.classList.remove("show");
@@ -179,6 +182,24 @@ function closePopup(){
   toast("보석함에 다이아몬드를 담았어요");
   render();
 }
+function dismissPopup(){
+  overlay.classList.remove("show");
+  rewardBtn.classList.remove("show");
+  state.progress=50;
+  render();
+}
+function createDiamondSparkles(){
+  for(let i=0;i<8;i++){
+    const s=document.createElement("i");
+    s.className="sparkle";
+    s.style.left=115+Math.random()*70+"px";
+    s.style.top=190+Math.random()*70+"px";
+    s.style.setProperty("--x",(Math.random()*70-35)+"px");
+    s.style.setProperty("--y",(-34-Math.random()*44)+"px");
+    document.querySelector(".popup").appendChild(s);
+    setTimeout(()=>s.remove(),1300);
+  }
+}
 function toast(text){toastEl.textContent=text;toastEl.classList.add("show");clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>toastEl.classList.remove("show"),1700)}
 rockZone.addEventListener("click",hit);
 adMore.addEventListener("click",()=>{state.remaining=5;state.opened=5;toast("광고 시청 완료, 보석 5개 추가");render()});
@@ -186,6 +207,11 @@ document.getElementById("checkinBtn").addEventListener("click",()=>toast("출석
 document.getElementById("boxBtn").addEventListener("click",()=>collection.classList.add("show"));
 document.getElementById("closeCollection").addEventListener("click",()=>collection.classList.remove("show"));
 rewardBtn.addEventListener("click",closePopup);
+popupClose.addEventListener("click",dismissPopup);
+diamondWrap.addEventListener("pointerdown",e=>{diamondWrap.setPointerCapture(e.pointerId);diamondWrap.classList.add("dragging")});
+diamondWrap.addEventListener("pointermove",e=>{if(!diamondWrap.classList.contains("dragging"))return;const r=diamondWrap.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;diamondWrap.style.transform=`rotateX(${-y*18}deg) rotateY(${x*18}deg) scale(1.04)`});
+diamondWrap.addEventListener("pointerup",e=>{diamondWrap.releasePointerCapture(e.pointerId);diamondWrap.classList.remove("dragging");diamondWrap.style.transform=""});
+diamondWrap.addEventListener("pointercancel",()=>{diamondWrap.classList.remove("dragging");diamondWrap.style.transform=""});
 render();
 </script>
 </body>
